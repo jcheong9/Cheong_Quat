@@ -15,6 +15,7 @@
         android:hint="@string/hintUserID"
         android:inputType="textPersonName"
         android:importantForAutofill="no" />
+
     <TextView
         android:id="@+id/tvDatePicker"
         android:layout_width="wrap_content"
@@ -27,13 +28,14 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintReadingTime"
         android:textSize="20sp" />
+
     <EditText
         android:id="@+id/etSystolicReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintSystolicReading"
-        android:inputType="textPersonName"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"/>
     <EditText
         android:id="@+id/etDiastolicReading"
         android:layout_width="match_parent"
@@ -41,6 +43,7 @@
         android:hint="@string/hintDiastolicReading"
         android:inputType="textPersonName"
         android:importantForAutofill="no" />
+
     <TextView
         android:id="@+id/tvCondition"
         android:layout_width="wrap_content"
