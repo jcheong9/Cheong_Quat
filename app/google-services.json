@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "291090911414",
+    "firebase_url": "https://cheongquat.firebaseio.com",
+    "project_id": "cheongquat",
+    "storage_bucket": "cheongquat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291090911414:android:e64b05615cd43000321617",
+        "android_client_info": {
+          "package_name": "ca.bcit.cheong_quat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291090911414-8lhkgs8vinabg4qrp1vcj5j5cgle7h4n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.bcit.cheong_quat",
+            "certificate_hash": "9aebcaa402f821dd9a8855f612a8b8dcb34aee80"
+          }
+        },
+        {
+          "client_id": "291090911414-h0rhd35gc9lminckb9trbvbrlqkh8s0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4TyXGF10gYnYMG7ft0KRVMWwTrraHAKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291090911414-h0rhd35gc9lminckb9trbvbrlqkh8s0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
