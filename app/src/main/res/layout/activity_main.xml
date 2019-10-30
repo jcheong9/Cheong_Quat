@@ -1,18 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/editTextTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/hintUserID"
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
     <TextView
+        android:id="@+id/tvDatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:hint="@string/hintReadingDate"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tvTimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintReadingTime"
+        android:textSize="20sp" />
+    <EditText
+        android:id="@+id/etSystolicReading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintSystolicReading"
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/etDiastolicReading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hintDiastolicReading"
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
+    <TextView
+        android:id="@+id/tvCondition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/tvCondition"
+        android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/buttonAddTodo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hintDiastolicReading" />
+
+</LinearLayout>

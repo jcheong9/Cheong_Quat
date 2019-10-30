@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Cheong_Quat</string>
+    <string name="hintUserID">User ID</string>
+    <string name="hintReadingDate">Reading date</string>
+    <string name="hintReadingTime">Reading time</string>
+    <string name="hintSystolicReading">Systolic Reading</string>
+    <string name="hintDiastolicReading">Diastolic Reading</string>
+    <string name="tvCondition">Condition Reading</string>
+    <string name="btnUpdate">Update</string>
+    <string name="btnDelete">Delete</string>
 </resources>
