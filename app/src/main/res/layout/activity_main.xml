@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/editTextTask"
+        android:id="@+id/etUserID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -52,7 +52,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/buttonAddTodo"
+        android:id="@+id/btnDiastolicReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hintDiastolicReading" />
