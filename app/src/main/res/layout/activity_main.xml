@@ -35,13 +35,13 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintSystolicReading"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"/>
+        android:inputType="number"/>
     <EditText
         android:id="@+id/etDiastolicReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintDiastolicReading"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:importantForAutofill="no" />
 
     <TextView

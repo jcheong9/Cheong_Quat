@@ -111,26 +111,33 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private void processConditionReading(){
         String systolicReading = etSystolicReading.getText().toString().trim();
         String diastolicReading = etDiastolicReading.getText().toString().trim();
+
+        if(TextUtils.isEmpty(systolicReading)){
+            Toast.makeText(this, "You must enter a systolic reading.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (TextUtils.isEmpty(diastolicReading)) {
+            Toast.makeText(this, "You must enter a diastolic reading.", Toast.LENGTH_LONG).show();
+            return;
+        }
         int sRead = Integer.parseInt(systolicReading);
         int dRead = Integer.parseInt(diastolicReading);
-
-        if (! (TextUtils.isEmpty(systolicReading) && TextUtils.isEmpty(diastolicReading))){
-            if(sRead <= 120 && dRead <= 180){
-
-            }
-            if(sRead > 120 && sRead <= 129 && dRead <= 80){
-
-            }
-            if(sRead >= 130 && sRead <= 139 || dRead > 80 && dRead <= 89){
-
-            }
-            if(sRead >= 180 || dRead > 120){
-
-            }
-            if(sRead >= 140 || dRead > 90){
-
-            }
+        if(sRead <= 120 && dRead <= 180){
+            tvCondition.setText("Normal");
         }
+        else if(sRead > 120 && sRead <= 129 && dRead <= 80){
+            tvCondition.setText("Elevated");
+        }
+        else if(sRead >= 130 && sRead <= 139 || dRead > 80 && dRead <= 89){
+            tvCondition.setText("High blood pressure (stage 1)");
+        }
+        else if(sRead >= 180 || dRead >= 120){
+            tvCondition.setText("Hypertensive Crisis");
+        }
+        else if(sRead >= 140 || dRead > 90){
+            tvCondition.setText("High blood pressure (stage 2)");
+        }
+
     }
     private void setDateAndTime(){
         Calendar cal = Calendar.getInstance();
