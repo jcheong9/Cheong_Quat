@@ -1,11 +1,14 @@
 package ca.bcit.cheong_quat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +18,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+    DatabaseReference dbRef;
     private EditText etUserID;
     private TextView tvReadingTime;
     private TextView tvDisplayDate;
@@ -25,10 +36,14 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private EditText etSystolicReading;
     private EditText etDiastolicReading;
     private Button btnDiastolicReading;
+    private Button btnListBPView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dbRef = FirebaseDatabase.getInstance().getReference("bloodpressure");
         tvReadingTime =  findViewById(R.id.tvTimePicker);
         tvDisplayDate = findViewById(R.id.tvDatePicker);
         btnDiastolicReading = findViewById(R.id.btnDiastolicReading);
@@ -36,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         etSystolicReading = findViewById(R.id.etSystolicReading);
         etDiastolicReading = findViewById(R.id.etDiastolicReading);
         tvCondition = findViewById(R.id.tvCondition);
+        btnListBPView = findViewById(R.id.btnListBPView);
         setDateAndTime();
         tvReadingTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +79,13 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 processConditionReading();
             }
         });
-        etDiastolicReading.setOnClickListener(new View.OnClickListener() {
+        btnListBPView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                processConditionReading();
+                goToListBloodPressureView();
             }
         });
+
     }
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
@@ -107,6 +124,34 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             Toast.makeText(this, "You must enter a diastolic reading.", Toast.LENGTH_LONG).show();
             return;
         }
+        int sRead = Integer.parseInt(systolicReading);
+        int dRead = Integer.parseInt(diastolicReading);
+
+        String id = dbRef.push().getKey();
+        BloodPressure bloodPressure = new BloodPressure(id, userID, displayDate, readingTime, sRead, dRead);
+
+        Task setValueTask = dbRef.child(id).setValue(bloodPressure);
+
+        setValueTask.addOnSuccessListener(new OnSuccessListener() {
+            @Override
+            public void onSuccess(Object o) {
+                Toast.makeText(MainActivity.this, "Todo added.", Toast.LENGTH_LONG).show();
+
+                etUserID.setText("");
+                etSystolicReading.setText("");
+                etDiastolicReading.setText("");
+                setDateAndTime();
+            }
+        });
+
+        setValueTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this,
+                        "something went wrong.\n" + e.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void processConditionReading(){
         String systolicReading = etSystolicReading.getText().toString().trim();
@@ -156,6 +201,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         month = month + 1;
         String date = month + "/" + day + "/" + year;
         tvDisplayDate.setText(date);
+    }
+    private void goToListBloodPressureView(){
+        Intent intent = new Intent(this, ListReadingActivity.class);
+
+        startActivity(intent);
     }
 
 }

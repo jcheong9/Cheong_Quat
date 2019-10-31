@@ -1,6 +1,7 @@
 package ca.bcit.cheong_quat;
 
 public class BloodPressure {
+    private String bloodPressureID;
     private String userID;
     private String readDate;
     private String readTime;
@@ -10,12 +11,21 @@ public class BloodPressure {
     public BloodPressure() {
     }
 
-    public BloodPressure(String userID, String readDate, String readTime, int systolicRead, int diastolicRead) {
+    public BloodPressure(String bloodPressureID, String userID, String readDate, String readTime, int systolicRead, int diastolicRead) {
+        this.bloodPressureID = bloodPressureID;
         this.userID = userID;
         this.readDate = readDate;
         this.readTime = readTime;
         this.systolicRead = systolicRead;
         this.diastolicRead = diastolicRead;
+    }
+
+    public String getBloodPressureID() {
+        return bloodPressureID;
+    }
+
+    public void setBloodPressureID(String bloodPressureID) {
+        this.bloodPressureID = bloodPressureID;
     }
 
     public String getUserID() {

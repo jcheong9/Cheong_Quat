@@ -55,6 +55,11 @@
         android:id="@+id/btnDiastolicReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hintDiastolicReading" />
+        android:text="@string/btnAddBloodPressure" />
+    <Button
+        android:id="@+id/btnListBPView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnListBPView" />
 
 </LinearLayout>
