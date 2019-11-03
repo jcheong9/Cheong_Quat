@@ -14,20 +14,26 @@
         android:ems="10"
         android:hint="@string/hintUserID"
         android:inputType="textPersonName"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"/>
 
     <TextView
         android:id="@+id/tvDatePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/hintReadingDate"
-        android:textSize="20sp" />
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:padding="@dimen/padding_4"/>
     <TextView
         android:id="@+id/tvTimePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/hintReadingTime"
-        android:textSize="20sp" />
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:padding="@dimen/padding_4"/>
 
     <EditText
         android:id="@+id/etSystolicReading"
@@ -35,31 +41,40 @@
         android:layout_height="wrap_content"
         android:hint="@string/hintSystolicReading"
         android:importantForAutofill="no"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"/>
     <EditText
         android:id="@+id/etDiastolicReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/hintDiastolicReading"
         android:inputType="number"
-        android:importantForAutofill="no" />
-
+        android:importantForAutofill="no"
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"/>
     <TextView
         android:id="@+id/tvCondition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/tvCondition"
-        android:textSize="20sp" />
-
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"
+        android:paddingLeft="@dimen/padding_4"
+        android:paddingRight="@dimen/padding_4"/>
     <Button
         android:id="@+id/btnDiastolicReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnAddBloodPressure" />
+        android:text="@string/btnAddBloodPressure"
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8" />
     <Button
         android:id="@+id/btnListBPView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnListBPView" />
+        android:text="@string/btnListBPView"
+        android:layout_marginRight="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_8"/>
 
 </LinearLayout>
