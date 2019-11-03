@@ -79,6 +79,12 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 processConditionReading();
             }
         });
+        etDiastolicReading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                processConditionReading();
+            }
+        });
         btnListBPView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
