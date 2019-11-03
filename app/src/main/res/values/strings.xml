@@ -10,4 +10,10 @@
     <string name="btnListBPView">List Blood Pressure</string>
     <string name="btnUpdate">Update</string>
     <string name="btnDelete">Delete</string>
+
+    <string name="textUserID">User ID</string>
+    <string name="textReadingDate">Date: </string>
+    <string name="textReadingTime">Time: </string>
+    <string name="textSystolicReading">Systolic mm Hg: </string>
+    <string name="textDiastolicReading">Diastolic mm Hg: </string>
 </resources>

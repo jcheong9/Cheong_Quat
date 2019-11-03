@@ -2,30 +2,42 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:stretchColumns="*"
+    android:layout_marginRight="@dimen/margin_4"
+    android:layout_marginLeft="@dimen/margin_4"
     android:orientation="vertical">
-
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-
         <TextView
-            android:id="@+id/etUserID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+            android:textStyle="bold"
+            android:text="@string/textUserID"/>
+        <TextView
+            android:id="@+id/etUserID"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="4"/>
     </TableRow>
-
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/textReadingDate"/>
         <TextView
             android:id="@+id/tvDatePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
+            android:text="TextView"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/textReadingTime"/>
         <TextView
             android:id="@+id/tvTimePicker"
             android:layout_width="match_parent"
@@ -36,14 +48,21 @@
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/textSystolicReading"/>
         <TextView
             android:id="@+id/etSystolicReading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
-
+            android:text="TextView"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/textDiastolicReading"/>
         <TextView
             android:id="@+id/etDiastolicReading"
             android:layout_width="match_parent"
