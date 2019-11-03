@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/llMainActivityLayout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <EditText
         android:id="@+id/etUserID"
         android:layout_width="match_parent"
@@ -55,27 +49,14 @@
         android:imeOptions="actionDone"
         android:layout_marginRight="@dimen/margin_8"
         android:layout_marginLeft="@dimen/margin_8"/>
-    <TextView
-        android:id="@+id/tvCondition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/tvCondition"
-        android:layout_marginRight="@dimen/margin_8"
-        android:layout_marginLeft="@dimen/margin_8"
-        android:padding="@dimen/padding_4"/>
     <Button
-        android:id="@+id/btnDiastolicReading"
+        android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnAddBloodPressure"
-        android:layout_marginRight="@dimen/margin_8"
-        android:layout_marginLeft="@dimen/margin_8" />
+        android:text="@string/btnUpdate" />
     <Button
-        android:id="@+id/btnListBPView"
+        android:id="@+id/btnDelete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnListBPView"
-        android:layout_marginRight="@dimen/margin_8"
-        android:layout_marginLeft="@dimen/margin_8"/>
-
+        android:text="@string/btnDelete" />
 </LinearLayout>

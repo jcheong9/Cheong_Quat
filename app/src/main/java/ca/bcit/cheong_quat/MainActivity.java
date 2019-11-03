@@ -6,14 +6,17 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -21,13 +24,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity
+        implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     DatabaseReference dbRef;
     private EditText etUserID;
     private TextView tvReadingTime;
@@ -37,12 +42,12 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private EditText etDiastolicReading;
     private Button btnDiastolicReading;
     private Button btnListBPView;
+    private LinearLayout llMainActivityLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         dbRef = FirebaseDatabase.getInstance().getReference("bloodpressure");
         tvReadingTime =  findViewById(R.id.tvTimePicker);
         tvDisplayDate = findViewById(R.id.tvDatePicker);
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         etDiastolicReading = findViewById(R.id.etDiastolicReading);
         tvCondition = findViewById(R.id.tvCondition);
         btnListBPView = findViewById(R.id.btnListBPView);
+        llMainActivityLayout = findViewById(R.id.llMainActivityLayout);
         setDateAndTime();
         tvReadingTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             @Override
             public void onSuccess(Object o) {
                 Toast.makeText(MainActivity.this, "Todo added.", Toast.LENGTH_LONG).show();
-
                 etUserID.setText("");
                 etSystolicReading.setText("");
                 etDiastolicReading.setText("");
@@ -184,11 +189,14 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         }
         else if(sRead >= 180 || dRead >= 120){
             tvCondition.setText("Hypertensive Crisis");
+            warningHypertensiveCrisis();
         }
         else if(sRead >= 140 || dRead > 90){
             tvCondition.setText("High blood pressure (stage 2)");
         }
-
+    }
+    private void warningHypertensiveCrisis(){
+        Toast.makeText(getApplicationContext(),"Warning too high blood pressure!",Toast.LENGTH_LONG).show();
     }
     private void setDateAndTime(){
         Calendar cal = Calendar.getInstance();
