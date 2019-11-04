@@ -2,7 +2,6 @@ package ca.bcit.cheong_quat;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -35,11 +33,11 @@ public class BloodPressureListAdapter extends ArrayAdapter<BloodPressure> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_layout, null, true);
 
-        TextView tvUserID= listViewItem.findViewById(R.id.tvUserID);
-        TextView tvDate = listViewItem.findViewById(R.id.tvDate);
-        TextView tvTime = listViewItem.findViewById(R.id.tvTime);
-        TextView tvSystoRead = listViewItem.findViewById(R.id.tvSystoRead);
-        TextView tvDiasRead = listViewItem.findViewById(R.id.tvDiasRead);
+        TextView tvUserID= listViewItem.findViewById(R.id.etUserID);
+        TextView tvDate = listViewItem.findViewById(R.id.tvDatePicker);
+        TextView tvTime = listViewItem.findViewById(R.id.tvTimePicker);
+        TextView tvSystoRead = listViewItem.findViewById(R.id.etSystolicReading);
+        TextView tvDiasRead = listViewItem.findViewById(R.id.etDiastolicReading);
 
         BloodPressure bloodPressure = bloodPressureList.get(position);
         tvUserID.setText(bloodPressure.getUserID());

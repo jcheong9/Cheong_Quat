@@ -3,31 +3,28 @@ package ca.bcit.cheong_quat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity
+        implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     DatabaseReference dbRef;
     private EditText etUserID;
     private TextView tvReadingTime;
@@ -37,12 +34,12 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private EditText etDiastolicReading;
     private Button btnDiastolicReading;
     private Button btnListBPView;
+    private LinearLayout llMainActivityLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         dbRef = FirebaseDatabase.getInstance().getReference("bloodpressure");
         tvReadingTime =  findViewById(R.id.tvTimePicker);
         tvDisplayDate = findViewById(R.id.tvDatePicker);
@@ -52,7 +49,18 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         etDiastolicReading = findViewById(R.id.etDiastolicReading);
         tvCondition = findViewById(R.id.tvCondition);
         btnListBPView = findViewById(R.id.btnListBPView);
+        llMainActivityLayout = findViewById(R.id.llMainActivityLayout);
         setDateAndTime();
+        threadFunc();
+        if (savedInstanceState != null) {
+            String time = savedInstanceState.getString("time");
+            String date = savedInstanceState.getString("date");
+            String condition = savedInstanceState.getString("condition");
+            tvReadingTime.setText(time);
+            tvDisplayDate.setText(date);
+            tvCondition.setText(condition);
+        }
+
         tvReadingTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,18 +79,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             @Override
             public void onClick(View view) {
                 addDiastolicReading();
-            }
-        });
-        etSystolicReading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processConditionReading();
-            }
-        });
-        etDiastolicReading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                processConditionReading();
             }
         });
         btnListBPView.setOnClickListener(new View.OnClickListener() {
@@ -142,10 +138,10 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             @Override
             public void onSuccess(Object o) {
                 Toast.makeText(MainActivity.this, "Todo added.", Toast.LENGTH_LONG).show();
-
                 etUserID.setText("");
                 etSystolicReading.setText("");
                 etDiastolicReading.setText("");
+                tvCondition.setText("");
                 setDateAndTime();
             }
         });
@@ -164,11 +160,9 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         String diastolicReading = etDiastolicReading.getText().toString().trim();
 
         if(TextUtils.isEmpty(systolicReading)){
-            Toast.makeText(this, "You must enter a systolic reading.", Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(diastolicReading)) {
-            Toast.makeText(this, "You must enter a diastolic reading.", Toast.LENGTH_LONG).show();
             return;
         }
         int sRead = Integer.parseInt(systolicReading);
@@ -183,12 +177,17 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             tvCondition.setText("High blood pressure (stage 1)");
         }
         else if(sRead >= 180 || dRead >= 120){
+            if(!tvCondition.getText().toString().equals("Hypertensive Crisis")||
+                    tvCondition.getText().toString().isEmpty())
+                warningHypertensiveCrisis();
             tvCondition.setText("Hypertensive Crisis");
         }
         else if(sRead >= 140 || dRead > 90){
             tvCondition.setText("High blood pressure (stage 2)");
         }
-
+    }
+    private void warningHypertensiveCrisis(){
+        Toast.makeText(getApplicationContext(),"Warning too high blood pressure!",Toast.LENGTH_SHORT).show();
     }
     private void setDateAndTime(){
         Calendar cal = Calendar.getInstance();
@@ -210,8 +209,36 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     }
     private void goToListBloodPressureView(){
         Intent intent = new Intent(this, ListReadingActivity.class);
-
         startActivity(intent);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("time", tvReadingTime.getText().toString());
+        savedInstanceState.putString("date", tvDisplayDate.getText().toString());
+        savedInstanceState.putString("condition", tvCondition.getText().toString());
+    }
+    private void threadFunc() {
+        Thread thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    while (!this.isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                processConditionReading();
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        thread.start();
     }
 
 }
