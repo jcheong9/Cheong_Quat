@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         }
         int sRead = Integer.parseInt(systolicReading);
         int dRead = Integer.parseInt(diastolicReading);
-        if(sRead <= 120 && dRead <= 180){
+        if(sRead <= 120 && dRead <= 80){
             tvCondition.setText("Normal");
         }
         else if(sRead > 120 && sRead <= 129 && dRead <= 80){
