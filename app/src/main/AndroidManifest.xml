@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListReadingActivity"></activity>
+        <activity android:name=".ReportActivity"></activity>
     </application>
 
 </manifest>

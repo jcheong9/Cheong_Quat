@@ -5,8 +5,11 @@ public class BloodPressure {
     private String userID;
     private String readDate;
     private String readTime;
+    private String condition;
     private int systolicRead;
     private int diastolicRead;
+    private double systolicAverage;
+    private double diastolicAverage;
 
     public BloodPressure() {
     }
@@ -18,6 +21,13 @@ public class BloodPressure {
         this.readTime = readTime;
         this.systolicRead = systolicRead;
         this.diastolicRead = diastolicRead;
+    }
+
+    public BloodPressure(String userID, double systolicAverage, double diastolicAverage, String condition) {
+        this.userID = userID;
+        this.systolicAverage = systolicAverage;
+        this.diastolicAverage = diastolicAverage;
+        this.condition = condition;
     }
 
     public String getBloodPressureID() {
@@ -66,5 +76,17 @@ public class BloodPressure {
 
     public void setDiastolicRead(int diastolicRead) {
         this.diastolicRead = diastolicRead;
+    }
+
+    public double getSystolicAverage() {
+        return systolicAverage;
+    }
+
+    public double getDiastolicAverage() {
+        return diastolicAverage;
+    }
+
+    public String getCondition() {
+        return condition;
     }
 }

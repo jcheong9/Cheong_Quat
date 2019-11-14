@@ -10,10 +10,24 @@
     <string name="btnListBPView">List Blood Pressure</string>
     <string name="btnUpdate">Update</string>
     <string name="btnDelete">Delete</string>
+    <string name="btnViewReport">Monthly Reports</string>
+    <string name="btnGetReport">Get Report</string>
 
     <string name="textUserID">User ID</string>
     <string name="textReadingDate">Date: </string>
     <string name="textReadingTime">Time: </string>
     <string name="textSystolicReading">Systolic mm Hg: </string>
     <string name="textDiastolicReading">Diastolic mm Hg: </string>
+
+    <string name="condition_normal">Normal</string>
+    <string name="condition_elevated">Elevated</string>
+    <string name="condition_hbp_s1">High Blood Pressure (Stage 1)</string>
+    <string name="condition_hbp_s2">High Blood Pressure (Stage 2)</string>
+    <string name="condition_hypertensive">Hypertensive Crisis</string>
+
+    <string name="report_header">Month-To-Date average readings for</string>
+    <string name="sys_average">Systolic Reading:</string>
+    <string name="dias_average">Diastolic Reading:</string>
+    <string name="condition_average">Average Condition:</string>
+
 </resources>

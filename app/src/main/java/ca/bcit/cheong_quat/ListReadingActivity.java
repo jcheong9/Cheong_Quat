@@ -30,10 +30,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class ListReadingActivity extends AppCompatActivity
-        implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener{
+public class ListReadingActivity extends AppCompatActivity {
     private DatabaseReference dbRef;
     private ListView lvBloodPressure;
     private List<BloodPressure> bloodPressureList;
@@ -96,12 +96,6 @@ public class ListReadingActivity extends AppCompatActivity
         final TextView tvUserID = dialogView.findViewById(R.id.etUserID);
         tvUserID.setText(userID);
 
-        final TextView tvDate = dialogView.findViewById(R.id.tvDatePicker);
-        tvDate.setText(readDate);
-
-        final TextView tvTime = dialogView.findViewById(R.id.tvTimePicker);
-        tvTime.setText(readTime);
-
         final TextView tvSystoRead = dialogView.findViewById(R.id.etSystolicReading);
         tvSystoRead.setText("" + systolicRead);
 
@@ -115,29 +109,30 @@ public class ListReadingActivity extends AppCompatActivity
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
 
-        tvTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(),"time picker");
-            }
-        });
-        tvDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(),"date picker");
-            }
-        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String userId = tvUserID.getText().toString().trim();
-                String date = tvDate.getText().toString().trim();
-                String time = tvTime.getText().toString().trim();
+                //String date = tvDate.getText().toString().trim();
+                //String time = tvTime.getText().toString().trim();
                 String systoRead = tvSystoRead.getText().toString().trim();
                 String diasRead = tvDiasRead.getText().toString().trim();
+
+                Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+                String minWithZero= "";
+                if((minute/10.0) == 0.0){
+                    minWithZero = "0" + minute;
+                }else{
+                    minWithZero += minute;
+                }
+                String date = month + "/" + day + "/" + year;
+                String time = hour + ":" + minWithZero;
 
                 if (TextUtils.isEmpty(userId)) {
                     tvUserID.setError("You must enter a user ID.");
@@ -198,25 +193,6 @@ public class ListReadingActivity extends AppCompatActivity
                         Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-        TextView tvReadingTime = findViewById(R.id.tvTimePicker);
-        String minWithZero= "";
-        if((minute/10) == 0.0){
-            minWithZero = "0" + minute;
-        }else{
-            minWithZero += minute;
-        }
-        tvReadingTime.setText(hourOfDay + ":" + minWithZero);
-    }
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        TextView tvDisplayDate = findViewById(R.id.tvDatePicker);
-        month = month + 1;
-        String date = month + "/" + day + "/" + year;
-        tvDisplayDate.setText(date);
     }
 }
 

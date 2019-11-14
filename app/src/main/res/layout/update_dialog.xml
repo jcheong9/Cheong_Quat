@@ -12,23 +12,6 @@
         android:layout_marginRight="@dimen/margin_8"
         android:layout_marginLeft="@dimen/margin_8"/>
 
-    <TextView
-        android:id="@+id/tvDatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/hintReadingDate"
-        android:layout_marginRight="@dimen/margin_8"
-        android:layout_marginLeft="@dimen/margin_8"
-        android:padding="@dimen/padding_4"/>
-    <TextView
-        android:id="@+id/tvTimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/hintReadingTime"
-        android:layout_marginRight="@dimen/margin_8"
-        android:layout_marginLeft="@dimen/margin_8"
-        android:padding="@dimen/padding_4"/>
-
     <EditText
         android:id="@+id/etSystolicReading"
         android:layout_width="match_parent"

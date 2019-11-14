@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_span="4"/>
     </TableRow>
+
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -27,22 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@string/textReadingDate"/>
+            android:text="@string/sys_average"/>
         <TextView
-            android:id="@+id/tvDatePicker"
+            android:id="@+id/tvSysAverage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="@string/textReadingTime"/>
-        <TextView
-            android:id="@+id/tvTimePicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content"/>
     </TableRow>
 
     <TableRow
@@ -52,23 +42,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@string/textSystolicReading"
-            android:textSize="16dp"/>
+            android:text="@string/dias_average"/>
         <TextView
-            android:id="@+id/etSystolicReading"
+            android:id="@+id/tvDiasAverage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"/>
+            android:layout_height="wrap_content"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@string/textDiastolicReading"
-            android:textSize="16dp"/>
+            android:text="@string/condition_average"/>
         <TextView
-            android:id="@+id/etDiastolicReading"
+            android:id="@+id/tvAverageCondition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:textSize="17dp"/>
     </TableRow>
 </TableLayout>

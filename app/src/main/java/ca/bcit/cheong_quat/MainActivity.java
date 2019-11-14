@@ -27,13 +27,12 @@ public class MainActivity extends AppCompatActivity
         implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     DatabaseReference dbRef;
     private EditText etUserID;
-    private TextView tvReadingTime;
-    private TextView tvDisplayDate;
     private TextView tvCondition;
     private EditText etSystolicReading;
     private EditText etDiastolicReading;
     private Button btnDiastolicReading;
     private Button btnListBPView;
+    private Button btnViewReport;
     private LinearLayout llMainActivityLayout;
 
     @Override
@@ -41,14 +40,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbRef = FirebaseDatabase.getInstance().getReference("bloodpressure");
-        tvReadingTime =  findViewById(R.id.tvTimePicker);
-        tvDisplayDate = findViewById(R.id.tvDatePicker);
         btnDiastolicReading = findViewById(R.id.btnDiastolicReading);
         etUserID = findViewById(R.id.etUserID);
         etSystolicReading = findViewById(R.id.etSystolicReading);
         etDiastolicReading = findViewById(R.id.etDiastolicReading);
         tvCondition = findViewById(R.id.tvCondition);
         btnListBPView = findViewById(R.id.btnListBPView);
+        btnViewReport = findViewById(R.id.btnViewReport);
         llMainActivityLayout = findViewById(R.id.llMainActivityLayout);
         setDateAndTime();
         threadFunc();
@@ -56,25 +54,9 @@ public class MainActivity extends AppCompatActivity
             String time = savedInstanceState.getString("time");
             String date = savedInstanceState.getString("date");
             String condition = savedInstanceState.getString("condition");
-            tvReadingTime.setText(time);
-            tvDisplayDate.setText(date);
             tvCondition.setText(condition);
         }
 
-        tvReadingTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(),"time picker");
-            }
-        });
-        tvDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(),"date picker");
-            }
-        });
         btnDiastolicReading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +67,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 goToListBloodPressureView();
+            }
+        });
+        btnViewReport.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                goToReportView();
             }
         });
 
@@ -98,7 +86,6 @@ public class MainActivity extends AppCompatActivity
         }else{
             minWithZero += minute;
         }
-        tvReadingTime.setText(hourOfDay + ":" + minWithZero);
     }
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -109,8 +96,6 @@ public class MainActivity extends AppCompatActivity
     }
     private void addDiastolicReading(){
         String userID = etUserID.getText().toString().trim();
-        String readingTime = tvReadingTime.getText().toString().trim();
-        String displayDate = tvDisplayDate.getText().toString().trim();
         String systolicReading = etSystolicReading.getText().toString().trim();
         String diastolicReading = etDiastolicReading.getText().toString().trim();
 
@@ -130,7 +115,22 @@ public class MainActivity extends AppCompatActivity
         int dRead = Integer.parseInt(diastolicReading);
 
         String id = dbRef.push().getKey();
-        BloodPressure bloodPressure = new BloodPressure(id, userID, displayDate, readingTime, sRead, dRead);
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+        String minWithZero= "";
+        if((minute/10.0) == 0.0){
+            minWithZero = "0" + minute;
+        }else{
+            minWithZero += minute;
+        }
+        String date = month + "/" + day + "/" + year;
+        String time = hour + ":" + minWithZero;
+
+        BloodPressure bloodPressure = new BloodPressure(id, userID, date, time, sRead, dRead);
 
         Task setValueTask = dbRef.child(id).setValue(bloodPressure);
 
@@ -168,22 +168,22 @@ public class MainActivity extends AppCompatActivity
         int sRead = Integer.parseInt(systolicReading);
         int dRead = Integer.parseInt(diastolicReading);
         if(sRead <= 120 && dRead <= 80){
-            tvCondition.setText("Normal");
+            tvCondition.setText(R.string.condition_normal);
         }
         else if(sRead > 120 && sRead <= 129 && dRead <= 80){
-            tvCondition.setText("Elevated");
+            tvCondition.setText(R.string.condition_elevated);
         }
         else if(sRead >= 130 && sRead <= 139 || dRead > 80 && dRead <= 89){
-            tvCondition.setText("High blood pressure (stage 1)");
+            tvCondition.setText(R.string.condition_hbp_s1);
         }
         else if(sRead >= 180 || dRead >= 120){
             if(!tvCondition.getText().toString().equals("Hypertensive Crisis")||
                     tvCondition.getText().toString().isEmpty())
                 warningHypertensiveCrisis();
-            tvCondition.setText("Hypertensive Crisis");
+            tvCondition.setText(R.string.condition_hypertensive);
         }
         else if(sRead >= 140 || dRead > 90){
-            tvCondition.setText("High blood pressure (stage 2)");
+            tvCondition.setText(R.string.condition_hbp_s2);
         }
     }
     private void warningHypertensiveCrisis(){
@@ -197,25 +197,26 @@ public class MainActivity extends AppCompatActivity
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minute = cal.get(Calendar.MINUTE);
         String minWithZero= "";
-        if((minute/10) == 0.0){
+        if((minute/10.0) == 0.0){
             minWithZero = "0" + minute;
         }else{
             minWithZero += minute;
         }
-        tvReadingTime.setText(hour + ":" + minWithZero);
         month = month + 1;
         String date = month + "/" + day + "/" + year;
-        tvDisplayDate.setText(date);
     }
     private void goToListBloodPressureView(){
         Intent intent = new Intent(this, ListReadingActivity.class);
         startActivity(intent);
     }
+
+    private void goToReportView() {
+        Intent intent = new Intent(this, ReportActivity.class);
+        startActivity(intent);
+    }
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("time", tvReadingTime.getText().toString());
-        savedInstanceState.putString("date", tvDisplayDate.getText().toString());
         savedInstanceState.putString("condition", tvCondition.getText().toString());
     }
     private void threadFunc() {
